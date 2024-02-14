@@ -13,12 +13,11 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="">
+      <div className="flex w-full mt-[75px]">
         <Sidebar />
       </div>
 
       <Routes>
-        <Route path="/" element={<Feed />} />
         <Route path="/video/:id" element={<VideoDetails />} />
         <Route path="/channel/:id" element={<ChannelDetails />} />
         <Route path="/search:searchterm" element={<SearchFeed />} />
