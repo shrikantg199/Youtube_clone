@@ -10,7 +10,7 @@ function VideoCard({ item }) {
       await axios.get(` https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${item.snippet.channelId}&key=${API_KEY}
     `);
     setyticon(data?.items?.[0]?.snippet?.thumbnails?.high?.url);
-    console.log(data?.items?.[0]?.snippet?.thumbnails?.high?.url);
+    //console.log(data?.items?.[0]?.snippet?.thumbnails?.high?.url);
   };
   useEffect(() => {
     getYoutubeChannelName();
@@ -27,7 +27,7 @@ function VideoCard({ item }) {
   return (
     <>
       <div className="flex-col">
-        <div className="  h-[45vh] w-[40vh] flex p-2 justify-center relative ">
+        <div className="  h-[45vh] w-[40vh] flex p-2 justify-center relative z-0">
           <div className="relative">
             {" "}
             <img
@@ -35,7 +35,7 @@ function VideoCard({ item }) {
               alt=""
               className="relative h-[200px] w-[350px]  rounded-xl "
             />
-            <div className="flex ">
+            <div className="flex  rounded-lg">
               <div className="flex  relative">
                 {" "}
                 <Avatar
