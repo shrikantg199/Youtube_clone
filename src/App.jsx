@@ -1,27 +1,21 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
-import { Box } from "@mui/material";
-import VideoDetails from "./components/VideoDetails";
-import Feed from "./components/Feed";
-import ChannelDetails from "./components/ChannelDetails";
-import SearchFeed from "./components/SearchFeed";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Watch from "./components/Watch";
+import Body from "./components/Body";
 
 function App() {
   return (
     <>
       <Navbar />
       <div className="flex w-full mt-[75px]">
-        <Sidebar />
+        <Router>
+          <Routes>
+            <Route path="/" element={<Body />} />
+            <Route path="/watch" element={<Watch />} />
+          </Routes>
+        </Router>
       </div>
-
-      <Routes>
-        <Route path="/video/:id" element={<VideoDetails />} />
-        <Route path="/channel/:id" element={<ChannelDetails />} />
-        <Route path="/search:searchterm" element={<SearchFeed />} />
-      </Routes>
     </>
   );
 }
