@@ -8,6 +8,7 @@ import { RiVideoDownloadFill } from "react-icons/ri";
 import { Avatar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../app/slice/appSlice";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -19,13 +20,14 @@ function Navbar() {
       <div className="h-16 top-0 bottom-0 flex fixed justify-between items-center w-full bg-white z-10  ">
         <div className="flex items-center gap-5  ">
           <GiHamburgerMenu
-            className="text-4xl font-semibold m-2 cursor-pointer"
+            className="text-2xl font-semibold ml-6 cursor-pointer"
             onClick={toggleHandler}
           />
           <div className="flex justify-center items-center">
             <YouTubeIcon sx={{ fontSize: 52, color: "red" }} />
-
-            <span className="font-bold text-2xl">Youtube</span>
+            <a href="/">
+              <span className="font-bold text-2xl">Youtube</span>
+            </a>
           </div>
         </div>
 
