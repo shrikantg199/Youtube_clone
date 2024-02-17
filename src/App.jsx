@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="flex w-full mt-[75px]">
+      <div className=" w-full mt-[75px]">
         <Router>
           <Routes>
             <Route path="/" element={<Body />} />
