@@ -4,10 +4,20 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_KEY } from "../constant/youtube";
+import { SlLike } from "react-icons/sl";
+import { SlDislike } from "react-icons/sl";
+import { FaRegShareSquare } from "react-icons/fa";
+import { IoMdDownload } from "react-icons/io";
+import Comments from "./Comments";
+import SuggestedVideo from "./SuggestedVideo";
 function Watch() {
   const [searchParams] = useSearchParams();
   const [singleVideo, setsingleVideo] = useState([]);
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+  const [yticon, setyticon] = useState("");
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const handleReadMoreClick = () => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
+  };
   const videoId = searchParams.get("v");
   //console.log(videoId);
   const getsingleVideo = async () => {
@@ -16,15 +26,30 @@ function Watch() {
       const { data } = await axios.get(
         `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
       );
-      //console.log(data.items[0]);
+      //console.log(data.items);
       setsingleVideo(data.items);
+
+      const singleVideoData = data.items[0];
+      const channelId = singleVideoData.snippet.channelId;
+      const channelResponse = await axios.get(
+        `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${API_KEY}`
+      );
+      const channelData = channelResponse.data.items[0];
+
+      setyticon(channelData.snippet.thumbnails.default.url);
+      // console.log("Subscriber Count:", channelData);
     } catch (error) {
       console.error("Error fetching YouTube videos:", error);
     }
+    const { data } = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${videoId}&key=${API_KEY}`
+    );
+    //console.log(data.items);
   };
   useEffect(() => {
     getsingleVideo();
   }, [videoId, API_KEY]);
+  //const [comments, setComments] = useState([]);
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -43,14 +68,11 @@ function Watch() {
       return views.toString();
     }
   };
-  //hidden sidebar
-  const toggleSidebar = () => {
-    setIsSidebarVisible(!isSidebarVisible);
-  };
+
   return (
     <div className="overflow-x-hidden overflow-y-hidden">
       <Sidebar />
-      <div className=" bg-blue-700 ml-44 h-auto top-0 left-0 ">
+      <div className=" bg-white ml-20 h-auto top-0 left-0 ">
         {" "}
         <div className="flex   h-[80vh] p-4  ">
           <iframe
@@ -61,23 +83,27 @@ function Watch() {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           />
-          <div className="flex ml-5 h-[200vh] w-[35%] bg-red-600"></div>
+          <div className=" justify-center pt-2 ml-5 h-[200vh] w-[35%] ">
+            <h1 className="p-3">Feed Videos</h1>
+            <SuggestedVideo videoId={videoId} />
+          </div>
         </div>
         {singleVideo.map((video) => (
           <div className="ml-2" key={video.id}>
-            <h1 className="pt-2 pl-8 w-[60%]">
+            <h1 className="pt-2 pl-8 w-[60%] text-xl font-bold ">
               {video.snippet.localized.title}
             </h1>
             <div className="flex justify-between  w-[60%]">
               <div className="flex ml-3 p-2 items-center">
                 <Avatar
                   alt="Remy Sharp"
-                  src={``}
+                  src={yticon}
                   sx={{ width: 40, height: 40, margin: 1 }}
                   className="z-0 "
                 />
+
                 <div className="p-3">
-                  <h1>{video.snippet.channelTitle} </h1>
+                  <h1 className="font-bold">{video.snippet.channelTitle} </h1>
                   <h1>Lorem, ipsum.</h1>
                 </div>
                 <button className="h-10 w-24 ml-12 text-white bg-black rounded-xl ">
@@ -85,12 +111,31 @@ function Watch() {
                 </button>
               </div>
               <div className="flex items-center gap-4 mr-8">
-                <h1>like {formatViews(video.statistics.likeCount)}</h1>
-                <h1>Share</h1>
-                <h1>download</h1>
+                <div className=" flex items-center">
+                  <div className="flex justify-center gap-1 bg-gray-600/30 rounded-s-xl w-20 py-2 cursor-pointer hover:bg-slate-400/40">
+                    <SlLike className="text-xl " />{" "}
+                    <span className="text-sm">
+                      {formatViews(video.statistics.likeCount)}
+                    </span>
+                  </div>
+                  <div className="flex justify-center bg-slate-600/30 rounded-e-xl   w-12 py-2 cursor-pointer hover:bg-slate-400/40">
+                    <SlDislike className=" text-center text-xl " />
+                  </div>
+                </div>
+                <div className=" bg-gray-600/30 cursor-pointer px-6 rounded-xl h-8 pt-1">
+                  <div className="flex gap-2 justify-center items-center ">
+                    <FaRegShareSquare className="text-xl" />
+                    Share
+                  </div>
+                </div>
+                <div className="bg-gray-600/30 cursor-pointer px-6 rounded-xl h-8 pt-1">
+                  <div className="flex gap-1">
+                    <IoMdDownload className="text-xl" /> download
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="h-auto bg-black/50 py-2 text-white pl-4 ml-3 space-y-6 w-[115vh]">
+            <div className="h-auto rounded-xl text-black bg-gray-600/30 py-2  pl-4 ml-3 space-y-6 w-[115vh]">
               <div className=" flex gap-3">
                 <h1>
                   {parseInt(video.statistics.viewCount).toLocaleString()} views
@@ -98,8 +143,19 @@ function Watch() {
 
                 <h1>{formatDate(video.snippet.publishedAt)}</h1>
               </div>
-              <h1 className="p-1"> {video.snippet.localized.description}</h1>
+              <div className="p-1 ">
+                {isDescriptionExpanded
+                  ? video.snippet.localized.description
+                  : `${video.snippet.localized.description.slice(0, 300)}...`}
+                <span
+                  className="text-blue-900 font-bold cursor-pointer"
+                  onClick={handleReadMoreClick}
+                >
+                  {isDescriptionExpanded ? " Read Less" : "Read More"}
+                </span>
+              </div>
             </div>
+            <Comments videoId={videoId} />
           </div>
         ))}
       </div>
