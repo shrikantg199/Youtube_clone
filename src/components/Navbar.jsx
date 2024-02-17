@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CiBellOn } from "react-icons/ci";
 
@@ -8,7 +7,6 @@ import { RiVideoDownloadFill } from "react-icons/ri";
 import { Avatar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../app/slice/appSlice";
-import { Link } from "react-router-dom";
 
 function Navbar() {
   const dispatch = useDispatch();
