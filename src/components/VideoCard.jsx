@@ -10,7 +10,6 @@ function VideoCard({ item }) {
       await axios.get(` https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${item.snippet.channelId}&key=${API_KEY}
     `);
     setyticon(data?.items?.[0]?.snippet?.thumbnails?.high?.url);
-    //console.log(data?.items?.[0]?.snippet?.thumbnails?.high?.url);
   };
   useEffect(() => {
     getYoutubeChannelName();
