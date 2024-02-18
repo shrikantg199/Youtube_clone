@@ -1,4 +1,4 @@
-import { Avatar } from "@mui/material";
+import { Avatar, Hidden } from "@mui/material";
 import Sidebar from "./Sidebar";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import { FaRegShareSquare } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import Comments from "./Comments";
 import SuggestedVideo from "./SuggestedVideo";
+import { useSelector } from "react-redux";
 function Watch() {
   const [searchParams] = useSearchParams();
   const [singleVideo, setsingleVideo] = useState([]);
@@ -68,10 +69,11 @@ function Watch() {
       return views.toString();
     }
   };
-
+  const open = useSelector((state) => state.app.open);
   return (
     <div className="overflow-x-hidden overflow-y-hidden">
       <Sidebar />
+
       <div className=" bg-white ml-20 h-auto top-0 left-0 ">
         {" "}
         <div className="flex   h-[80vh] p-4  ">
@@ -79,12 +81,13 @@ function Watch() {
             className="w-[60%] h-full flex rounded-2xl object-cover"
             src={`https://www.youtube.com/embed/${videoId}?si=4-Vuvv5uSMi8CsJd&autoplay=1 `}
             title="YouTube video player"
-            frameBorder={0}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           />
           <div className=" justify-center pt-2 ml-5 h-[200vh] w-[35%] ">
-            <h1 className="p-3">Feed Videos</h1>
+            <h1 className="p-3 text-center text-2xl font-medium">
+              Recommended videos
+            </h1>
             <SuggestedVideo videoId={videoId} />
           </div>
         </div>
