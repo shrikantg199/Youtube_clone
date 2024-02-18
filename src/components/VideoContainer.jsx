@@ -13,7 +13,7 @@ function VideoContainer() {
       console.log(data.items);
       setVideos(data?.items);
     } catch (error) {
-      console.error("Error fetching YouTube videos:", error);
+      console.error("Error fetching YouTube videos:", error.message);
     }
   };
 
