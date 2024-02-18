@@ -48,7 +48,7 @@ function VideoCard({ item }) {
                 <h1 className="font-bold text-md">
                   {item.snippet.title.slice(0, 30)}
                 </h1>
-                <h6>{item.snippet.channelTitle}..</h6>
+                <h6>{item.snippet.channelTitle}</h6>
                 <div className="flex gap-4 ">
                   {" "}
                   <h6>{formatViews(item.statistics.viewCount)} views</h6>
