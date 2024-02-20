@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Watch from "./components/Watch";
 import Body from "./components/Body";
 import Shorts from "./components/Shorts";
+
 function App() {
   return (
     <>
