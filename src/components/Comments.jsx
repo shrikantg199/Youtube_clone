@@ -5,13 +5,15 @@ import { Avatar } from "@mui/material";
 import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
 import { formatDistanceToNow } from "date-fns";
+import { useDispatch, useSelector } from "react-redux";
+import { like } from "../app/slice/appSlice";
 function Comments({ videoId }) {
   const [comment, setComment] = useState([]);
   const Allcomment = async () => {
     const { data } = await axios.get(
       `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${videoId}&key=${API_KEY}`
     );
-    //console.log(data.items);
+    console.log(data.items);
     setComment(data.items);
   };
   useEffect(() => {
@@ -21,6 +23,8 @@ function Comments({ videoId }) {
     const publishedAt = new Date(dateTimeString);
     return formatDistanceToNow(publishedAt, { addSuffix: true });
   };
+  const dispatch = useDispatch();
+  const like = useSelector((state) => state.app.likes);
   return (
     <div className="ml-4 m-2">
       <h1 className="text-2xl font-semibold">Comments</h1>
@@ -45,7 +49,13 @@ function Comments({ videoId }) {
 
             <h1>{item.snippet.topLevelComment.snippet.textOriginal}</h1>
             <div className="flex gap-3 p-2 item-center">
-              <SlLike className="cursor-pointer" />
+              <SlLike
+                onClick={() => {
+                  dispatch(like());
+                }}
+                className="cursor-pointer"
+              />
+              {like}
               <SlDislike className="cursor-pointer" />
               <button>Reply</button>
             </div>
