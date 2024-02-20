@@ -25,14 +25,14 @@ function VideoCard({ item }) {
   };
   return (
     <>
-      <div className="flex-col">
+      <div className="mt-12  flex-col">
         <div className="  h-[45vh] w-[40vh] flex p-2 justify-center relative z-0">
           <div className="relative">
             {" "}
             <img
               src={item?.snippet?.thumbnails?.high?.url}
               alt=""
-              className="relative h-[200px] w-[350px]  rounded-xl "
+              className="relative h-[200px] w-[350px]  rounded-xl hover:scale-110 transition-all "
             />
             <div className="flex  rounded-lg">
               <div className="flex  relative">
