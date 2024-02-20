@@ -10,7 +10,7 @@ import { FaRegShareSquare } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import Comments from "./Comments";
 import SuggestedVideo from "./SuggestedVideo";
-import { useSelector } from "react-redux";
+
 function Watch() {
   const [searchParams] = useSearchParams();
   const [singleVideo, setsingleVideo] = useState([]);
@@ -69,7 +69,7 @@ function Watch() {
       return views.toString();
     }
   };
-  const open = useSelector((state) => state.app.open);
+
   return (
     <div className="overflow-x-hidden overflow-y-hidden">
       <Sidebar />
