@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const menuItems = [
   {
     Link: "/",
-    icon: <FaHome className="text-2xl m-4   " />,
+    icon: <FaHome className="lg:text-2xl m-4  text-lg  " />,
     label: "Home",
   },
   {
@@ -22,29 +22,29 @@ const menuItems = [
     label: "Shorts",
   },
   {
-    Link: "#",
+    Link: "/Subscriptions",
     icon: <SubscriptionsIcon sx={{ fontSize: 22, margin: "15px" }} />,
     label: "Subscriptions",
   },
   {
     Link: "#",
-    icon: <CgProfile className="text-xl mt-3 mx-4" />,
-    label: "Your Channel",
+    icon: <CgProfile className="lg:text-xl mt-3 mx-4 text-lg" />,
+    label: "Trending",
   },
   {
     Link: "#",
-    icon: <MdOutlineManageHistory className="text-2xl m-4" />,
-    label: "History",
+    icon: <MdOutlineManageHistory className="lg:text-2xl m-4 text-lg" />,
+    label: "Gaming",
   },
   {
     Link: "#",
-    icon: <GoVideo className="text-2xl m-4" />,
-    label: "Your videos",
+    icon: <GoVideo className="lg:text-2xl m-4 text-lg" />,
+    label: "News",
   },
   {
     Link: "#",
-    icon: <CiClock2 className="text-2xl m-4" />,
-    label: "Watch Later",
+    icon: <CiClock2 className="lg:text-2xl m-4 text-lg" />,
+    label: "Sport",
   },
 ];
 function Sidebar() {
@@ -61,9 +61,13 @@ function Sidebar() {
             <div className="flex justify-start items-center">
               <span>{item.icon}</span>
               {open ? (
-                <p className="block transition-all px-6">{item.label}</p>
+                <p className=" hidden lg:block  transition-all px-6">
+                  {item.label}
+                </p>
               ) : (
-                <p className="hidden transition-all">{item.label}</p>
+                <p className="lg:hidden text-sm lg:text-3xl transition-all">
+                  {item.label}
+                </p>
               )}
             </div>
           </Link>
