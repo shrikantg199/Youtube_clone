@@ -34,7 +34,7 @@ function ButtonList() {
     console.log(tag);
   };
   return (
-    <div className="flex items-center py-2 top-[60px] fixed no-scrollbar h-18 bg-white z-10 overflow-x-auto  lg:left-[250px] w-full gap-3">
+    <div className="flex items-center py-2  top-[60px] fixed no-scrollbar h-18 bg-white z-10 overflow-x-auto  lg:left-[240px] w-full gap-3">
       {ButtonList.map((buttonName, index) => (
         <button
           key={index}
