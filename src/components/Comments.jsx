@@ -6,12 +6,12 @@ import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
 import { formatDistanceToNow } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
-import { like } from "../app/slice/appSlice";
+
 function Comments({ videoId }) {
   const [comment, setComment] = useState([]);
   const Allcomment = async () => {
     const { data } = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${videoId}&key=${API_KEY}`
+      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${videoId}&key=${API_KEY}&q=hinduism`
     );
     console.log(data.items);
     setComment(data.items);
