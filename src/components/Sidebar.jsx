@@ -28,11 +28,6 @@ const menuItems = [
   },
   {
     Link: "#",
-    icon: <CgProfile className="lg:text-xl mt-3 mx-4 text-lg" />,
-    label: "Trending",
-  },
-  {
-    Link: "#",
     icon: <MdOutlineManageHistory className="lg:text-2xl m-4 text-lg" />,
     label: "Gaming",
   },
