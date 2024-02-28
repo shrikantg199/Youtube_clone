@@ -1,4 +1,4 @@
-import { Avatar, Hidden } from "@mui/material";
+import { Avatar } from "@mui/material";
 import Sidebar from "./Sidebar";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -36,16 +36,12 @@ function Watch() {
         `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${API_KEY}`
       );
       const channelData = channelResponse.data.items[0];
-
+      console.log(channelResponse.data.items);
       setyticon(channelData.snippet.thumbnails.default.url);
       // console.log("Subscriber Count:", channelData);
     } catch (error) {
       console.error("Error fetching YouTube videos:", error);
     }
-    const { data } = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${videoId}&key=${API_KEY}`
-    );
-    //console.log(data.items);
   };
   useEffect(() => {
     getsingleVideo();
